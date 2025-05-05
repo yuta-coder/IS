@@ -1,0 +1,44 @@
+def main(): 
+    print("\n\t\tRAIL FENCE TECHNIQUE") 
+    a = input("\n\nEnter the input string: ") 
+ 
+    l = len(a) 
+    c = [''] * l  # For ciphertext 
+    d = [''] * l  # For decrypted text 
+     
+    # Encryption: Rail Fence Cipher 
+    j = 0 
+    for i in range(l): 
+        if i % 2 == 0: 
+            c[j] = a[i] 
+            j += 1 
+    for i in range(l): 
+        if i % 2 == 1: 
+            c[j] = a[i] 
+            j += 1 
+    ciphertext = ''.join(c) 
+     
+    print("\nCiphertext after applying rail fence:") 
+    print(ciphertext) 
+     
+    # Decryption: Rail Fence Cipher 
+    if l % 2 == 0: 
+        k = l // 2 
+    else: 
+        k = (l // 2) + 1 
+     
+    j = 0 
+    for i in range(k): 
+        d[j] = c[i] 
+        j += 2 
+    j = 1 
+    for i in range(k, l):    #(k,l) is very imop 
+        d[j] = c[i] 
+        j += 2 
+    decrypted_text = ''.join(d) 
+     
+    print("Text after decryption:") 
+    print(decrypted_text) 
+ 
+if __name__ == "__main__": 
+    main() 

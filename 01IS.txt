@@ -1,0 +1,11 @@
+string = input("Enter String: ") 
+res_and = "" 
+res_xor = "" 
+for char in string: 
+    and_val = ord(char) & 127 
+    xor_val = ord(char) ^ 127 
+    res_and += chr(and_val) 
+    res_xor += chr(xor_val) 
+print("Original String:", string) 
+print("AND Result:", res_and) 
+print("XOR Result:", res_xor)

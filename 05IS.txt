@@ -1,0 +1,28 @@
+import math 
+# Step 1: Input two prime numbers 
+p = int(input("Enter a prime number p: ")) 
+q = int(input("Enter a prime number q: ")) 
+# Step 2: Calculate n and Euler's totient function phi 
+n = p * q 
+phi = (p - 1) * (q - 1) 
+# Step 3: Choose public exponent e such that 1 < e < phi and gcd(e, phi) = 1 
+e = 2 
+while e < phi: 
+    if math.gcd(e, phi) == 1: 
+        break 
+    e += 1 
+# Step 4: Calculate private exponent d such that (d * e) % phi = 1 
+k = 2  # arbitrary small integer to help find d 
+d = ((k * phi) + 1) // e 
+# Step 5: Display the public and private keys 
+print("\nPublic key: (", e, ",", n, ")")
+
+print("Private key: (", d, ",", n, ")\n") 
+# Step 6: Input message to encrypt (must be less than n) 
+msg = int(input("Enter a number message to encrypt (less than n): ")) 
+# Step 7: Encrypt the message 
+cipher = pow(msg, e, n) 
+print("Encrypted message:", cipher) 
+# Step 8: Decrypt the message 
+original = pow(cipher, d, n) 
+print("Decrypted message:", original)
