@@ -1,0 +1,55 @@
+import heapq
+
+# Maze representation (0 = path, 1 = wall)
+maze = [
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0],
+    [1, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0]
+]
+
+start = (0, 0)  # Start point (row, col)
+end = (4, 4)    # Goal point
+
+# Heuristic: Manhattan distance
+def h(a, b):
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+# A* Algorithm
+def astar(maze, start, end):
+    rows, cols = len(maze), len(maze[0])
+    open_set = []
+    heapq.heappush(open_set, (0 + h(start, end), 0, start, [start]))  # (f, g, node, path)
+    visited = set()
+
+    while open_set:
+       f, g, current, path = heapq.heappop(open_set)
+
+        if current == end:
+            return path
+
+        visited.add(current)
+
+        # 4 directions: up, down, left, right
+        for dx, dy in [(-1,0), (1,0), (0,-1), (0,1)]:
+            nx, ny = current[0] + dx, current[1] + dy
+            neighbor = (nx, ny)
+
+            if 0 <= nx < rows and 0 <= ny < cols and maze[nx][ny] == 0 and neighbor not in visited:
+                heapq.heappush(open_set, (g + 1 + h(neighbor, end), g + 1, neighbor, path + [neighbor]))
+
+             return None
+
+# Run A*
+path = astar(maze, start, end)
+
+# Output result
+if path:
+    print("Path found:")
+    for p in path:
+        print(p)
+    print("Total steps:", len(path) - 1)
+else:
+    print("No path found.")
+
